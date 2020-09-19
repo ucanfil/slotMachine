@@ -49,7 +49,87 @@
                 </div>
             </div>
             <section class="controls">
-                <div class="debug"></div>
+                <div class="debug">
+                    <div class="debug-header">
+                        <label for="mode">Select mode:</label>
+                        <select name="mode" id="mode">
+                            <option value="random">Random</option>
+                            <option value="fixed">Fixed</option>
+                        </select>
+                    </div>
+                    <table class="debug-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>1st Reel</th>
+                                <th>2nd Reel</th>
+                                <th>3rd Reel</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Symbol</td>
+                                <td>
+                                    <label for="reel-0-symbol"></label>
+                                    <select name=reel-0-symbol>
+                                        <option value="3xBAR" data-index="0">3xBAR</option>
+                                        <option value="BAR" data-index="1">BAR</option>
+                                        <option value="2xBAR" data-index="2">2xBAR</option>
+                                        <option value="7" data-index="3">7</option>
+                                        <option value="Cherry" data-index="4">Cherry</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <label for="reel-1-symbol"></label>
+                                    <select name=reel-1-symbol>
+                                        <option value="3xBAR" data-index="0">3xBAR</option>
+                                        <option value="BAR" data-index="1">BAR</option>
+                                        <option value="2xBAR" data-index="2">2xBAR</option>
+                                        <option value="7" data-index="3">7</option>
+                                        <option value="Cherry" data-index="4">Cherry</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <label for="reel-2-symbol"></label>
+                                    <select name=reel-2-symbol>
+                                        <option value="3xBAR" data-index="0">3xBAR</option>
+                                        <option value="BAR" data-index="1">BAR</option>
+                                        <option value="2xBAR" data-index="2">2xBAR</option>
+                                        <option value="7" data-index="3">7</option>
+                                        <option value="Cherry" data-index="4">Cherry</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Position</td>
+                                <td>
+                                    <label for="reel-0-pos"></label>
+                                    <select name=reel-0-pos>
+                                        <option value="top">Top</option>
+                                        <option value="center">Center</option>
+                                        <option value="bottom">Bottom</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <label for="reel-1-pos"></label>
+                                    <select name=reel-1-pos>
+                                        <option value="top">Top</option>
+                                        <option value="center">Center</option>
+                                        <option value="bottom">Bottom</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <label for="reel-2-pos"></label>
+                                    <select name=reel-2-pos>
+                                        <option value="top">Top</option>
+                                        <option value="center">Center</option>
+                                        <option value="bottom">Bottom</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <button class="spin">spin</button>
             </section>
         </main>
