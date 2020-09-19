@@ -91,7 +91,7 @@ $(document).ready(function () {
 
         if (finished) {
             cancelAnimationFrame(animationID);
-            $('.spin').attr('disabled', false);
+            enableSpinButton();
             count = 0;
         }
 
@@ -100,7 +100,7 @@ $(document).ready(function () {
     $('.spin').on('click', function() {
         // start = new Date().getTime();
 
-        $(this).attr('disabled', true);
+        disableSpinButton();
 
         console.log('trackPos started ! ', spinNums)
         trackPos();
@@ -113,8 +113,6 @@ $(document).ready(function () {
             bottom: [],
         };
 
-        // spinNums = [];
-
         spin();
     });
 
@@ -122,8 +120,12 @@ $(document).ready(function () {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
-    function getRandomRotation(sensitivity, cb, min, max) {
-        return sensitivity * cb(min, max);
+    function disableSpinButton() {
+        $('.spin').attr('disabled', true).addClass('disabled');
+    }
+
+    function enableSpinButton() {
+        $('.spin').attr('disabled', false).removeClass('disabled');
     }
 
     var indexes  = [currIndex, currIndex, currIndex];
@@ -139,8 +141,9 @@ $(document).ready(function () {
     function trackPos() {
 
         $('.reel').each(function(i) {
-            // Get a spin number between 1-10, each spin will be 36 degrees
-            var spinNum = genRandomNum(1, 10);// 3
+
+            var spinNum = calcDesiredSpinNum(i);
+
             // spinNums.push(spinNum);
             spinNums[i] = (spinNums[i] + spinNum) % 10;
 
@@ -166,6 +169,46 @@ $(document).ready(function () {
 
         });
 
+    }
+
+    function calcDesiredSpinNum(reelIndex) {
+
+        var isFixed = $('[name="mode"]').val() === 'fixed';
+
+        if (!isFixed) {
+            // Get a spin number between 1 and 10, each spin will be 36 degrees
+            return genRandomNum(1, 10);
+        } else {
+
+            var desiredIndex = $('[name="reel-' + reelIndex + '-symbol"]').find(':selected').data('index');
+            var desiredPos = $('[name="reel-' + reelIndex + '-pos"]').val();
+
+            var spinNum = ((desiredIndex - indexes[reelIndex] + symbolsLen) % symbolsLen) * 2;
+
+            switch (true) {
+                case currPos[reelIndex] === center && desiredPos === bottom:
+                    spinNum = spinNum - 1;
+                    break;
+                case currPos[reelIndex] === center && desiredPos === top:
+                    spinNum = spinNum + 1;
+                    break;
+                case currPos[reelIndex] === top && desiredPos === center:
+                    spinNum = spinNum - 1;
+                    break;
+                case currPos[reelIndex] === top && desiredPos === bottom:
+                    spinNum = spinNum - 2;
+                    break;
+                case currPos[reelIndex] === bottom && desiredPos === center:
+                    spinNum = spinNum + 1;
+                    break;
+                case currPos[reelIndex] === bottom && desiredPos === top:
+                    spinNum = spinNum + 2;
+                    break;
+            }
+
+            return spinNum;
+
+        }
     }
 
 });

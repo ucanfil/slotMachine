@@ -64,6 +64,10 @@ body {
     color: #2ea980;
 }
 
+.disabled {
+    color: #aeacac;
+}
+
 .slot-machine {
     margin: 0 auto;
     width: 450px;
