@@ -18,6 +18,29 @@ body {
     font-size: 2rem;
 }
 
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pay-table {
+    max-width: 250px;
+    margin: auto 2rem 100px;
+    align-self: flex-end;
+}
+
+.pay-table thead tr th:first-child,
+.pay-table thead tr th:last-child {
+    max-width: 20px;
+}
+
+.pay-table td {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
 .header {
     margin: 100px auto 0;
     width: 450px;
@@ -149,15 +172,15 @@ padding: 15px;
 text-align: left;
 }
 
-.debug-table tr:nth-child(even) {
+table tr:nth-child(even) {
 background-color: #eee;
 }
 
-.debug-table tr:nth-child(odd) {
+table tr:nth-child(odd) {
 background-color: #fff;
 }
 
-.debug-table th {
+table th {
 background-color: #aeacac;
 color: white;
 }

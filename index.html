@@ -20,118 +20,196 @@
     </head>
     <body>
         <main>
-            <section class="header">won</section>
-            <div class="slot-machine">
-                <div class="wrapper">
-                    <div class="scene">
-                        <div class="reel reel__0"></div>
+            <table class="pay-table">
+                <thead>
+                    <tr>
+                        <th>Position</th>
+                        <th colspan="3">Symbol</th>
+                        <!-- <th>1st Reel</th>
+                        <th>2nd Reel</th> -->
+                        <th>Pay</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-pos-symbol="top-C" data-value="2000">
+                        <td>Top</td>
+                        <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
+                        <td>2000</td>
+                    </tr>
+                    <tr data-pos-symbol="center-C" data-value="1000">
+                        <td>Center</td>
+                        <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
+                        <td>1000</td>
+                    </tr>
+                    <tr data-pos-symbol="bottom-C" data-value="4000">
+                        <td>Bottom</td>
+                        <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
+                        <td>4000</td>
+                    </tr>
+                    <tr data-pos-symbol="any-7" data-value="150">
+                        <td>Any</td>
+                        <td style="background-image: url('./img/7.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/7.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/7.png'); background-size: contain;"></td>
+                        <td>150</td>
+                    </tr>
+                    <tr data-pos-symbol="any-Cherry7" data-value="75">
+                        <td>Any</td>
+                        <td style="background-image: url('./img/Cherry7.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/Cherry7.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/Cherry7.png'); background-size: contain;"></td>
+                        <td>75</td>
+                    </tr>
+                    <tr data-pos-symbol="any-3xBAR" data-value="50">
+                        <td>Any</td>
+                        <td style="background-image: url('./img/3xBAR.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/3xBAR.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/3xBAR.png'); background-size: contain;"></td>
+                        <td>50</td>
+                    </tr>
+                    <tr data-pos-symbol="any-2xBAR" data-value="20">
+                        <td>Any</td>
+                        <td style="background-image: url('./img/2xBAR.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/2xBAR.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/2xBAR.png'); background-size: contain;"></td>
+                        <td>20</td>
+                    </tr>
+                    <tr data-pos-symbol="any-BAR" data-value="10">
+                        <td>Any</td>
+                        <td style="background-image: url('./img/BAR.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/BAR.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/BAR.png'); background-size: contain;"></td>
+                        <td>10</td>
+                    </tr>
+                    <tr data-pos-symbol="any-BARS" data-value="5">
+                        <td>Any</td>
+                        <td style="background-image: url('./img/BARS.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/BARS.png'); background-size: contain;"></td>
+                        <td style="background-image: url('./img/BARS.png'); background-size: contain;"></td>
+                        <td>5</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="game-wrapper">
+                <section class="header">won</section>
+                <div class="slot-machine">
+                    <div class="wrapper">
+                        <div class="scene">
+                            <div class="reel reel__0"></div>
+                        </div>
+                    </div>
+                    <div class="gap gap__0">
+                        <div class="wl wl__top"></div>
+                        <div class="wl wl__center"></div>
+                        <div class="wl wl__bottom"></div>
+                    </div>
+                    <div class="wrapper">
+                        <div class="scene">
+                            <div class="reel reel__1"></div>
+                        </div>
+                    </div>
+                    <div class="gap gap__1">
+                        <div class="wl wl__top"></div>
+                        <div class="wl wl__center"></div>
+                        <div class="wl wl__bottom"></div>
+                    </div>
+                    <div class="wrapper">
+                        <div class="scene">
+                            <div class="reel reel__2"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="gap gap__0">
-                    <div class="wl wl__top"></div>
-                    <div class="wl wl__center"></div>
-                    <div class="wl wl__bottom"></div>
-                </div>
-                <div class="wrapper">
-                    <div class="scene">
-                        <div class="reel reel__1"></div>
+                <section class="controls">
+                    <div class="debug">
+                        <div class="debug-header">
+                            <label for="mode">Select mode:</label>
+                            <select name="mode" id="mode">
+                                <option value="random">Random</option>
+                                <option value="fixed">Fixed</option>
+                            </select>
+                        </div>
+                        <table class="debug-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>1st Reel</th>
+                                    <th>2nd Reel</th>
+                                    <th>3rd Reel</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Symbol</td>
+                                    <td>
+                                        <label for="reel-0-symbol"></label>
+                                        <select name=reel-0-symbol>
+                                            <option value="3xBAR" data-index="0">3xBAR</option>
+                                            <option value="BAR" data-index="1">BAR</option>
+                                            <option value="2xBAR" data-index="2">2xBAR</option>
+                                            <option value="7" data-index="3">7</option>
+                                            <option value="Cherry" data-index="4">Cherry</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <label for="reel-1-symbol"></label>
+                                        <select name=reel-1-symbol>
+                                            <option value="3xBAR" data-index="0">3xBAR</option>
+                                            <option value="BAR" data-index="1">BAR</option>
+                                            <option value="2xBAR" data-index="2">2xBAR</option>
+                                            <option value="7" data-index="3">7</option>
+                                            <option value="Cherry" data-index="4">Cherry</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <label for="reel-2-symbol"></label>
+                                        <select name=reel-2-symbol>
+                                            <option value="3xBAR" data-index="0">3xBAR</option>
+                                            <option value="BAR" data-index="1">BAR</option>
+                                            <option value="2xBAR" data-index="2">2xBAR</option>
+                                            <option value="7" data-index="3">7</option>
+                                            <option value="Cherry" data-index="4">Cherry</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Position</td>
+                                    <td>
+                                        <label for="reel-0-pos"></label>
+                                        <select name=reel-0-pos>
+                                            <option value="top">Top</option>
+                                            <option value="center">Center</option>
+                                            <option value="bottom">Bottom</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <label for="reel-1-pos"></label>
+                                        <select name=reel-1-pos>
+                                            <option value="top">Top</option>
+                                            <option value="center">Center</option>
+                                            <option value="bottom">Bottom</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <label for="reel-2-pos"></label>
+                                        <select name=reel-2-pos>
+                                            <option value="top">Top</option>
+                                            <option value="center">Center</option>
+                                            <option value="bottom">Bottom</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-                <div class="gap gap__1">
-                    <div class="wl wl__top"></div>
-                    <div class="wl wl__center"></div>
-                    <div class="wl wl__bottom"></div>
-                </div>
-                <div class="wrapper">
-                    <div class="scene">
-                        <div class="reel reel__2"></div>
-                    </div>
-                </div>
+                    <button class="spin">spin</button>
+                </section>
             </div>
-            <section class="controls">
-                <div class="debug">
-                    <div class="debug-header">
-                        <label for="mode">Select mode:</label>
-                        <select name="mode" id="mode">
-                            <option value="random">Random</option>
-                            <option value="fixed">Fixed</option>
-                        </select>
-                    </div>
-                    <table class="debug-table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>1st Reel</th>
-                                <th>2nd Reel</th>
-                                <th>3rd Reel</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Symbol</td>
-                                <td>
-                                    <label for="reel-0-symbol"></label>
-                                    <select name=reel-0-symbol>
-                                        <option value="3xBAR" data-index="0">3xBAR</option>
-                                        <option value="BAR" data-index="1">BAR</option>
-                                        <option value="2xBAR" data-index="2">2xBAR</option>
-                                        <option value="7" data-index="3">7</option>
-                                        <option value="Cherry" data-index="4">Cherry</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <label for="reel-1-symbol"></label>
-                                    <select name=reel-1-symbol>
-                                        <option value="3xBAR" data-index="0">3xBAR</option>
-                                        <option value="BAR" data-index="1">BAR</option>
-                                        <option value="2xBAR" data-index="2">2xBAR</option>
-                                        <option value="7" data-index="3">7</option>
-                                        <option value="Cherry" data-index="4">Cherry</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <label for="reel-2-symbol"></label>
-                                    <select name=reel-2-symbol>
-                                        <option value="3xBAR" data-index="0">3xBAR</option>
-                                        <option value="BAR" data-index="1">BAR</option>
-                                        <option value="2xBAR" data-index="2">2xBAR</option>
-                                        <option value="7" data-index="3">7</option>
-                                        <option value="Cherry" data-index="4">Cherry</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Position</td>
-                                <td>
-                                    <label for="reel-0-pos"></label>
-                                    <select name=reel-0-pos>
-                                        <option value="top">Top</option>
-                                        <option value="center">Center</option>
-                                        <option value="bottom">Bottom</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <label for="reel-1-pos"></label>
-                                    <select name=reel-1-pos>
-                                        <option value="top">Top</option>
-                                        <option value="center">Center</option>
-                                        <option value="bottom">Bottom</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <label for="reel-2-pos"></label>
-                                    <select name=reel-2-pos>
-                                        <option value="top">Top</option>
-                                        <option value="center">Center</option>
-                                        <option value="bottom">Bottom</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <button class="spin">spin</button>
-            </section>
         </main>
     </body>
 </html>
