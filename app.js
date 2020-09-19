@@ -50,32 +50,40 @@ $(document).ready(function () {
         animationID = requestAnimationFrame(spin);
 
         // console.log(`${((now-start)/100)} seconds`)
-        angle += peakAngle / 2;
+        // angle += peakAngle / 2;
         count++;
+
+        if (count <= 180) {
+            $(spinNums).each(function (i) {
+                spinNums[i] = (spinNums[i] + 1) % 10;
+            });
+        }
+
+        // console.log(spinNums, count)
 
         if (count <= 120) {
             $('.reel__0').css({ WebkitTransform: 'rotateX(' +
-                (angle + angles[0]/120) % 360
+                (spinNums[0] * peakAngle / 2) % 360
             + 'deg)' });
 
             $('.reel__1').css({ WebkitTransform: 'rotateX(' +
-                (angle + angles[1]/150) % 360
+                (spinNums[1] * peakAngle / 2) % 360
             + 'deg)' });
 
             $('.reel__2').css({ WebkitTransform: 'rotateX(' +
-                (angle + angles[2]/180) % 360
+                (spinNums[2] * peakAngle / 2) % 360
             + 'deg)' });
         } else if (count > 120 && count <= 150) {
             $('.reel__1').css({ WebkitTransform: 'rotateX(' +
-                (angle + angles[1]/150) % 360
+                (spinNums[1] * peakAngle / 2) % 360
             + 'deg)' });
 
             $('.reel__2').css({ WebkitTransform: 'rotateX(' +
-                (angle + angles[2]/180) % 360
+                (spinNums[2] * peakAngle / 2) % 360
             + 'deg)' });
         } else if (count > 150 && count <= 180) {
             $('.reel__2').css({ WebkitTransform: 'rotateX(' +
-                (angle + angles[2]/180) % 360
+                (spinNums[2] * peakAngle / 2) % 360
             + 'deg)' });
         } else {
             finished = true;
@@ -92,11 +100,12 @@ $(document).ready(function () {
     $('.spin').on('click', function() {
         // start = new Date().getTime();
 
-        // $(this).attr('disabled', true);
+        $(this).attr('disabled', true);
 
-        // console.log(prevIndex, indexes, currPos, spinNums, totalPos);
+        console.log('trackPos started ! ', spinNums)
         trackPos();
-        // console.log(prevIndex, indexes, currPos, spinNums, totalPos);
+        console.log(indexes, currPos, spinNums, totalPos);
+        console.log('trackPos finished ! ', spinNums)
 
         totalPos = {
             top:    [],
@@ -106,7 +115,7 @@ $(document).ready(function () {
 
         // spinNums = [];
 
-        // spin();
+        spin();
     });
 
     function genRandomNum(min, max) {
@@ -154,8 +163,6 @@ $(document).ready(function () {
             }
 
             indexes[i] = newIndex;
-
-            $(this).css({ WebkitTransform: 'rotateX(' + (spinNums[i] * peakAngle/2) % 360 + 'deg)' });
 
         });
 
