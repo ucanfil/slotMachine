@@ -7,24 +7,42 @@ $(document).ready(function () {
         'Cherry',
     ];
 
-    var symbolsLen = symbols.length;
-
-    var currIndex = symbolsLen - 1;
-
     var TOTAL_REEL = 3;
     var MAX_BALANCE = 5000;
     var COST_PER_SPIN = -1;
+    var REEL0_DURATION = 2;
+    var REEL1_DURATION = 2.5;
+    var REEL2_DURATION = 3;
+    var symbolsLen = symbols.length;
+    var currIndex = symbolsLen - 1;
     var top = 'top';
     var bottom = 'bottom';
     var center = 'center';
+
+
+    // Variables needed for tracking positions
+    var indexes  = [currIndex, currIndex, currIndex];
+    var currPos  = [center, center, center];
+    var spinNums = [0, 0, 0];
+
+    var totalPos = {
+        top: [],
+        center: [],
+        bottom: [],
+    };
 
     // Formula calculates peak angle
     var peakAngle = 360 / symbolsLen;
     var imgWidth = 121;
 
     var tx = calcZ(symbolsLen, imgWidth);
-    var start, finished, animationID;
-    var count = 0;
+    var finished, animationID;
+
+    // Variables needed for consistent frame rate per second
+    // Logic gathered from -> https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
+    var frameCount = 0;
+    var FPS = 60;
+    var fpsInterval, startTime, now, then, elapsed;
 
 
     // Function calculates translateZ value
@@ -40,73 +58,88 @@ $(document).ready(function () {
         });
     }
 
-    $('.reel').each(function() {
-        reelSetup($(this));
-    });
-
     function spin() {
 
         finished = false;
 
         animationID = requestAnimationFrame(spin);
 
-        count++;
+        // calc elapsed time since last loop
+        now = Date.now();
+        elapsed = now - then;
 
-        if (count <= 180) {
-            $(spinNums).each(function (i) {
-                spinNums[i] = (spinNums[i] + 1) % 10;
-            });
+        // frameCount++;
+
+        // if enough time has elapsed, draw the next frame
+        if (elapsed > fpsInterval) {
+
+            // Get ready for next frame by setting then=now, but also adjust for
+            // your specified fpsInterval not being a multiple of RAF's interval
+            // (16.7ms)
+            then = now - (elapsed % fpsInterval);
+
+            frameCount++;
+
+            // Add spin nums per reel
+            if (frameCount <= REEL2_DURATION * FPS) {
+                $(spinNums).each(function (i) {
+                    spinNums[i] = (spinNums[i] + 1) % 10;
+                });
+            }
+
+            if (frameCount <= REEL0_DURATION * FPS) {
+
+                $('.reel__0').css({ WebkitTransform: 'rotateX(' +
+                    (spinNums[0] * peakAngle / 2) % 360
+                + 'deg)' });
+
+                $('.reel__1').css({ WebkitTransform: 'rotateX(' +
+                    (spinNums[1] * peakAngle / 2) % 360
+                + 'deg)' });
+
+                $('.reel__2').css({ WebkitTransform: 'rotateX(' +
+                    (spinNums[2] * peakAngle / 2) % 360
+                + 'deg)' });
+
+            } else if (frameCount > REEL0_DURATION * FPS && frameCount <= REEL1_DURATION * FPS) {
+
+                $('.reel__1').css({ WebkitTransform: 'rotateX(' +
+                    (spinNums[1] * peakAngle / 2) % 360
+                + 'deg)' });
+
+                $('.reel__2').css({ WebkitTransform: 'rotateX(' +
+                    (spinNums[2] * peakAngle / 2) % 360
+                + 'deg)' });
+
+            } else if (frameCount > REEL1_DURATION * FPS && frameCount <= REEL2_DURATION * FPS) {
+
+                $('.reel__2').css({ WebkitTransform: 'rotateX(' +
+                    (spinNums[2] * peakAngle / 2) % 360
+                + 'deg)' });
+
+            } else {
+                finished = true;
+            }
+
         }
 
-        if (count <= 120) {
-            $('.reel__0').css({ WebkitTransform: 'rotateX(' +
-                (spinNums[0] * peakAngle / 2) % 360
-            + 'deg)' });
-
-            $('.reel__1').css({ WebkitTransform: 'rotateX(' +
-                (spinNums[1] * peakAngle / 2) % 360
-            + 'deg)' });
-
-            $('.reel__2').css({ WebkitTransform: 'rotateX(' +
-                (spinNums[2] * peakAngle / 2) % 360
-            + 'deg)' });
-        } else if (count > 120 && count <= 150) {
-            $('.reel__1').css({ WebkitTransform: 'rotateX(' +
-                (spinNums[1] * peakAngle / 2) % 360
-            + 'deg)' });
-
-            $('.reel__2').css({ WebkitTransform: 'rotateX(' +
-                (spinNums[2] * peakAngle / 2) % 360
-            + 'deg)' });
-        } else if (count > 150 && count <= 180) {
-            $('.reel__2').css({ WebkitTransform: 'rotateX(' +
-                (spinNums[2] * peakAngle / 2) % 360
-            + 'deg)' });
-        } else {
-            finished = true;
-        }
 
         if (finished) {
             cancelAnimationFrame(animationID);
             enableInputs();
             reflectWinnings();
-            count = 0;
+            frameCount = 0;
         }
 
     }
 
-    $('.spin').on('click', function() {
-        // start = new Date().getTime();
-        trackBalance(COST_PER_SPIN);
-        disableInputs();
-
-        console.log('trackPos started ! ', spinNums)
-        trackPos();
-        console.log(indexes, currPos, spinNums, totalPos);
-        console.log('trackPos finished ! ', spinNums);
-
+    // initialize the timer variables and start the animation
+    function startAnimating(fps) {
+        fpsInterval = 1000 / fps;
+        then = Date.now();
+        startTime = then;
         spin();
-    });
+    }
 
     function genRandomNum(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
@@ -119,16 +152,6 @@ $(document).ready(function () {
     function enableInputs() {
         $('input, select, button').attr('disabled', false).removeClass('disabled');
     }
-
-    var indexes  = [currIndex, currIndex, currIndex];
-    var currPos  = [center, center, center];
-    var spinNums = [0, 0, 0];
-
-    var totalPos = {
-        top: [],
-        center: [],
-        bottom: [],
-    };
 
     function trackPos() {
 
@@ -316,13 +339,32 @@ $(document).ready(function () {
 
     }
 
+    $('.reel').each(function() {
+        reelSetup($(this));
+    });
+
+    $('.spin').on('click', function() {
+        // start = new Date().getTime();
+        trackBalance(COST_PER_SPIN);
+        disableInputs();
+
+        console.log('trackPos started ! ', spinNums)
+        trackPos();
+        console.log(indexes, currPos, spinNums, totalPos);
+        console.log('trackPos finished ! ', spinNums);
+
+        startAnimating(FPS);
+    });
+
     $(document.body).on('change', 'input[name="balance"]', function() {
+
         if ($(this).val() > MAX_BALANCE) {
             $(this).val(MAX_BALANCE);
             $('.error').fadeIn(2000, 'linear',function() {
                 $(this).fadeOut(2000);
             });
         }
+
     });
 
 });
