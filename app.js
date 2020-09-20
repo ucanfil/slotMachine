@@ -12,6 +12,7 @@ $(document).ready(function () {
     var currIndex = symbolsLen - 1;
 
     var TOTAL_REEL = 3;
+    var MAX_BALANCE = 5000;
     var top = 'top';
     var bottom = 'bottom';
     var center = 'center';
@@ -277,13 +278,33 @@ $(document).ready(function () {
 
     function reflectWinnings() {
 
+        var celebrations = [
+            'Wow!',
+            'Beautiful!',
+            'On fire!',
+            'Victory!',
+            'You won!',
+            'Congrats!',
+        ];
+
+        var isWon;
+        var pay = 0;
+        var $balanceBox = $('input[name="balance"]');
+        var balance = $balanceBox.val();
         var winningRows = calcWinningRows();
 
         for (var row in winningRows) {
-            $('.wl__' + row).effect("highlight", { color: "red" }, 3000);
+            isWon = true;
+            $('.wl__' + row).effect("highlight", { color: "#ff0000" }, 3000);
             $(winningRows[row]).effect("highlight", {}, 3000);
+            pay += $(winningRows[row]).data('value');
         }
 
+        if (isWon) {
+            $('.header').text(celebrations[genRandomNum(0, celebrations.length)]);
+            $balanceBox.val(+balance + pay);
+            $balanceBox.effect("highlight", {}, 3000);
+        }
 
         totalPos = {
             top:    [],
@@ -291,5 +312,14 @@ $(document).ready(function () {
             bottom: [],
         };
     }
+
+    $(document.body).on('change', 'input[name="balance"]', function () {
+        if ($(this).val() > MAX_BALANCE) {
+            $(this).val(MAX_BALANCE);
+            $('.error').fadeIn(2000, 'linear',function() {
+                $(this).fadeOut(2000);
+            });
+        }
+    });
 
 });
