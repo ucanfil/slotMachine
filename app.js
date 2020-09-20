@@ -13,6 +13,7 @@ $(document).ready(function () {
     var REEL0_DURATION = 2;
     var REEL1_DURATION = 2.5;
     var REEL2_DURATION = 3;
+    var IMG_WIDTH = 121;
     var symbolsLen = symbols.length;
     var currIndex = symbolsLen - 1;
     var top = 'top';
@@ -33,9 +34,8 @@ $(document).ready(function () {
 
     // Formula calculates peak angle
     var peakAngle = 360 / symbolsLen;
-    var imgWidth = 121;
 
-    var tx = calcZ(symbolsLen, imgWidth);
+    var tx = calcZ(symbolsLen, IMG_WIDTH);
     var finished, animationID;
 
     // Variables needed for consistent frame rate per second
@@ -67,8 +67,6 @@ $(document).ready(function () {
         // calc elapsed time since last loop
         now = Date.now();
         elapsed = now - then;
-
-        // frameCount++;
 
         // if enough time has elapsed, draw the next frame
         if (elapsed > fpsInterval) {
@@ -139,6 +137,7 @@ $(document).ready(function () {
         then = Date.now();
         startTime = then;
         spin();
+        playSound('spin');
     }
 
     function genRandomNum(min, max) {
@@ -287,7 +286,6 @@ $(document).ready(function () {
                     }
                 }
 
-                console.log(isSame, cherriesAnd7s, bars, winningRows)
             }
 
         }
@@ -321,9 +319,12 @@ $(document).ready(function () {
             $('.header').text(celebrations[genRandomNum(0, celebrations.length)]);
             trackBalance(pay);
             $('input[name="balance"]').effect("highlight", {}, 3000);
+
+            // Play payoff sound
+            playSound('payoff');
         }
 
-        // Reset totalPositions at this point
+        // Reset totalPositions at this point for the next spin
         totalPos = {
             top:    [],
             center: [],
@@ -339,21 +340,28 @@ $(document).ready(function () {
 
     }
 
+    function playSound(sound) {
+
+        var sounds = {
+            spin: './audio/spin.mp3',
+            payoff: './audio/payoff.mp3',
+        }
+
+        var sound = new Audio(sounds[sound]);
+        sound.play();
+    }
+
     $('.reel').each(function() {
         reelSetup($(this));
     });
 
     $('.spin').on('click', function() {
-        // start = new Date().getTime();
+
         trackBalance(COST_PER_SPIN);
         disableInputs();
-
-        console.log('trackPos started ! ', spinNums)
         trackPos();
-        console.log(indexes, currPos, spinNums, totalPos);
-        console.log('trackPos finished ! ', spinNums);
-
         startAnimating(FPS);
+
     });
 
     $(document.body).on('change', 'input[name="balance"]', function() {
