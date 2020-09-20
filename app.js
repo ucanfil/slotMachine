@@ -13,6 +13,7 @@ $(document).ready(function () {
 
     var TOTAL_REEL = 3;
     var MAX_BALANCE = 5000;
+    var COST_PER_SPIN = -1;
     var top = 'top';
     var bottom = 'bottom';
     var center = 'center';
@@ -24,7 +25,6 @@ $(document).ready(function () {
     var tx = calcZ(symbolsLen, imgWidth);
     var start, finished, animationID;
     var count = 0;
-    var angle = 0;
 
 
     // Function calculates translateZ value
@@ -45,13 +45,11 @@ $(document).ready(function () {
     });
 
     function spin() {
-        // var now = new Date().getTime();
+
         finished = false;
 
         animationID = requestAnimationFrame(spin);
 
-        // console.log(`${((now-start)/100)} seconds`)
-        // angle += peakAngle / 2;
         count++;
 
         if (count <= 180) {
@@ -59,8 +57,6 @@ $(document).ready(function () {
                 spinNums[i] = (spinNums[i] + 1) % 10;
             });
         }
-
-        // console.log(spinNums, count)
 
         if (count <= 120) {
             $('.reel__0').css({ WebkitTransform: 'rotateX(' +
@@ -101,7 +97,7 @@ $(document).ready(function () {
 
     $('.spin').on('click', function() {
         // start = new Date().getTime();
-
+        trackBalance(COST_PER_SPIN);
         disableInputs();
 
         console.log('trackPos started ! ', spinNums)
@@ -289,8 +285,6 @@ $(document).ready(function () {
 
         var isWon;
         var pay = 0;
-        var $balanceBox = $('input[name="balance"]');
-        var balance = $balanceBox.val();
         var winningRows = calcWinningRows();
 
         for (var row in winningRows) {
@@ -302,10 +296,11 @@ $(document).ready(function () {
 
         if (isWon) {
             $('.header').text(celebrations[genRandomNum(0, celebrations.length)]);
-            $balanceBox.val(+balance + pay);
-            $balanceBox.effect("highlight", {}, 3000);
+            trackBalance(pay);
+            $('input[name="balance"]').effect("highlight", {}, 3000);
         }
 
+        // Reset totalPositions at this point
         totalPos = {
             top:    [],
             center: [],
@@ -313,7 +308,15 @@ $(document).ready(function () {
         };
     }
 
-    $(document.body).on('change', 'input[name="balance"]', function () {
+    function trackBalance(amount) {
+
+        var $balanceBox = $('input[name="balance"]');
+        var balance = $balanceBox.val();
+        $balanceBox.val(+balance + amount);
+
+    }
+
+    $(document.body).on('change', 'input[name="balance"]', function() {
         if ($(this).val() > MAX_BALANCE) {
             $(this).val(MAX_BALANCE);
             $('.error').fadeIn(2000, 'linear',function() {
