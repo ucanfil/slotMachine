@@ -28,6 +28,7 @@ You just need a google chrome browser to check this simulation out.
   * When a particular win happens, corresponding row/s and win-lines are getting highlighted.
   * At the very last row of pay-table, the total balance locates. Users can specify a balance within 0-5000. In case of an invalid input, there is a warning text appears below part of the page.
   * Under the reels users will see "game mode" area. From there, positions and symbols can be set as wished.
+  * Simulation has spin and payoff sounds. Make sure your sound is on.
 
 
 ## Built With
