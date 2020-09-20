@@ -91,7 +91,8 @@ $(document).ready(function () {
 
         if (finished) {
             cancelAnimationFrame(animationID);
-            enableSpinButton();
+            enableInputs();
+            reflectWinnings();
             count = 0;
         }
 
@@ -100,18 +101,12 @@ $(document).ready(function () {
     $('.spin').on('click', function() {
         // start = new Date().getTime();
 
-        disableSpinButton();
+        disableInputs();
 
         console.log('trackPos started ! ', spinNums)
         trackPos();
         console.log(indexes, currPos, spinNums, totalPos);
-        console.log('trackPos finished ! ', spinNums)
-
-        totalPos = {
-            top:    [],
-            center: [],
-            bottom: [],
-        };
+        console.log('trackPos finished ! ', spinNums);
 
         spin();
     });
@@ -120,12 +115,12 @@ $(document).ready(function () {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
-    function disableSpinButton() {
-        $('.spin').attr('disabled', true).addClass('disabled');
+    function disableInputs() {
+        $('input, select, button').attr('disabled', true).addClass('disabled');
     }
 
-    function enableSpinButton() {
-        $('.spin').attr('disabled', false).removeClass('disabled');
+    function enableInputs() {
+        $('input, select, button').attr('disabled', false).removeClass('disabled');
     }
 
     var indexes  = [currIndex, currIndex, currIndex];
@@ -209,6 +204,92 @@ $(document).ready(function () {
             return spinNum;
 
         }
+    }
+
+    function calcWinningRows() {
+
+        var winningRows = {};
+
+        for (var pos in totalPos) {
+
+            // Check if we got symbols on all reels for the position in hand
+            if (totalPos[pos].length === TOTAL_REEL) {
+
+                var isSame = true;
+                var cherriesAnd7s = true;
+                var bars = true;
+                var current = $(totalPos[pos])[0];
+
+                $(totalPos[pos]).each(function (i, item) {
+
+                    if (current !== item) {
+                        isSame = false;
+                    }
+
+                    if (item === '3xBAR' || item === '2xBAR' || item === 'BAR') {
+                        cherriesAnd7s = false;
+                    }
+
+                    if (item === 'Cherry' || item === '7') {
+                        bars = false;
+                    }
+
+                });
+
+                // If all the symbols are the same, take the associated payments
+                // Else, see if there is an "any" type of payment provided
+                if (isSame) {
+                    switch (current) {
+                        case 'Cherry':
+                            winningRows[pos] = $('[data-pos="'+pos+'"][data-symbol="'+current+'"]');
+                            break;
+                        case '7':
+                            winningRows[pos] = $('[data-pos="any"][data-symbol="'+current+'"]');
+                            break;
+                        case '3xBAR':
+                            winningRows[pos] = $('[data-pos="any"][data-symbol="'+current+'"]');
+                            break;
+                        case '2xBAR':
+                            winningRows[pos] = $('[data-pos="any"][data-symbol="'+current+'"]');
+                            break;
+                        case 'BAR':
+                            winningRows[pos] = $('[data-pos="any"][data-symbol="'+current+'"]');
+                            break;
+                    }
+                } else {
+
+                    if (cherriesAnd7s) {
+                        winningRows[pos] = $('[data-pos="any"][data-symbol="Cherry7"]');
+                    }
+
+                    if (bars) {
+                        winningRows[pos] = $('[data-pos="any"][data-symbol="BARS"]');
+                    }
+                }
+
+                console.log(isSame, cherriesAnd7s, bars, winningRows)
+            }
+
+        }
+
+        return winningRows;
+    }
+
+    function reflectWinnings() {
+
+        var winningRows = calcWinningRows();
+
+        for (var row in winningRows) {
+            $('.wl__' + row).effect("highlight", { color: "red" }, 3000);
+            $(winningRows[row]).effect("highlight", {}, 3000);
+        }
+
+
+        totalPos = {
+            top:    [],
+            center: [],
+            bottom: [],
+        };
     }
 
 });

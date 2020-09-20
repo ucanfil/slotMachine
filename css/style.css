@@ -22,6 +22,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
 }
 
 .pay-table {
@@ -79,7 +80,8 @@ main {
 .spin {
     height: 100%;
     padding: 0;
-    border: none;
+    border: 3px solid;
+    border-radius: 3px;
     letter-spacing: 0.5rem;
     text-transform: uppercase;
     font-size: 3rem;

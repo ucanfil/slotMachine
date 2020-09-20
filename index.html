@@ -25,74 +25,82 @@
                     <tr>
                         <th>Position</th>
                         <th colspan="3">Symbol</th>
-                        <!-- <th>1st Reel</th>
-                        <th>2nd Reel</th> -->
                         <th>Pay</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-pos-symbol="top-C" data-value="2000">
+                    <tr data-pos="top" data-symbol="Cherry" data-value="2000">
                         <td>Top</td>
                         <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
                         <td>2000</td>
                     </tr>
-                    <tr data-pos-symbol="center-C" data-value="1000">
+                    <tr data-pos="center" data-symbol="Cherry" data-value="1000">
                         <td>Center</td>
                         <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
                         <td>1000</td>
                     </tr>
-                    <tr data-pos-symbol="bottom-C" data-value="4000">
+                    <tr data-pos="bottom" data-symbol="Cherry" data-value="4000">
                         <td>Bottom</td>
                         <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/Cherry.png'); background-size: contain;"></td>
                         <td>4000</td>
                     </tr>
-                    <tr data-pos-symbol="any-7" data-value="150">
+                    <tr data-pos="any" data-symbol="7" data-value="150">
                         <td>Any</td>
                         <td style="background-image: url('./img/7.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/7.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/7.png'); background-size: contain;"></td>
                         <td>150</td>
                     </tr>
-                    <tr data-pos-symbol="any-Cherry7" data-value="75">
+                    <tr data-pos="any" data-symbol="Cherry7" data-value="75">
                         <td>Any</td>
                         <td style="background-image: url('./img/Cherry7.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/Cherry7.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/Cherry7.png'); background-size: contain;"></td>
                         <td>75</td>
                     </tr>
-                    <tr data-pos-symbol="any-3xBAR" data-value="50">
+                    <tr data-pos="any" data-symbol="3xBAR" data-value="50">
                         <td>Any</td>
                         <td style="background-image: url('./img/3xBAR.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/3xBAR.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/3xBAR.png'); background-size: contain;"></td>
                         <td>50</td>
                     </tr>
-                    <tr data-pos-symbol="any-2xBAR" data-value="20">
+                    <tr data-pos="any" data-symbol="2xBAR" data-value="20">
                         <td>Any</td>
                         <td style="background-image: url('./img/2xBAR.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/2xBAR.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/2xBAR.png'); background-size: contain;"></td>
                         <td>20</td>
                     </tr>
-                    <tr data-pos-symbol="any-BAR" data-value="10">
+                    <tr data-pos="any" data-symbol="BAR" data-value="10">
                         <td>Any</td>
                         <td style="background-image: url('./img/BAR.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/BAR.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/BAR.png'); background-size: contain;"></td>
                         <td>10</td>
                     </tr>
-                    <tr data-pos-symbol="any-BARS" data-value="5">
+                    <tr data-pos="any" data-symbol="BARS" data-value="5">
                         <td>Any</td>
                         <td style="background-image: url('./img/BARS.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/BARS.png'); background-size: contain;"></td>
                         <td style="background-image: url('./img/BARS.png'); background-size: contain;"></td>
                         <td>5</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="font-weight: bold;">
+                            <label for="balance">Balance</label>
+                        </td>
+                        <td>
+                            <div>
+                                <input type="number" name="balance" id="balance" min="0" max="5000" value="5000">
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -104,7 +112,7 @@
                             <div class="reel reel__0"></div>
                         </div>
                     </div>
-                    <div class="gap gap__0">
+                    <div class="gap">
                         <div class="wl wl__top"></div>
                         <div class="wl wl__center"></div>
                         <div class="wl wl__bottom"></div>
@@ -114,7 +122,7 @@
                             <div class="reel reel__1"></div>
                         </div>
                     </div>
-                    <div class="gap gap__1">
+                    <div class="gap">
                         <div class="wl wl__top"></div>
                         <div class="wl wl__center"></div>
                         <div class="wl wl__bottom"></div>
