@@ -137,11 +137,21 @@
                 <section class="controls">
                     <div class="debug">
                         <div class="debug-header">
-                            <label for="mode">Select mode:</label>
-                            <select name="mode" id="mode">
-                                <option value="random">Random</option>
-                                <option value="fixed">Fixed</option>
-                            </select>
+                            <div>
+                                <label for="mode">Game mode:</label>
+                                <select name="mode" id="mode">
+                                    <option value="random">Random</option>
+                                    <option value="fixed">Fixed</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="speed">Animation speed:</label>
+                                <select name="speed" id="speed">
+                                    <option value="20">Slow</option>
+                                    <option value="40">Normal</option>
+                                    <option value="60" selected>Fast</option>
+                                </select>
+                            </div>
                         </div>
                         <table class="debug-table">
                             <thead>

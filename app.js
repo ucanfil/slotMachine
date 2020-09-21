@@ -41,7 +41,7 @@ $(document).ready(function () {
     // Variables needed for consistent frame rate per second
     // Logic gathered from -> https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
     var frameCount = 0;
-    var FPS = 60;
+    var FPS = 60; // Could be multiples of twenty up to sixty
     var fpsInterval, startTime, now, then, elapsed;
 
 
@@ -372,6 +372,12 @@ $(document).ready(function () {
                 $(this).fadeOut(2000);
             });
         }
+
+    });
+
+    $(document.body).on('change', '[name="speed"]', function() {
+
+        FPS = $(this).val();
 
     });
 

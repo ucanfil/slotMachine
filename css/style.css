@@ -75,7 +75,23 @@ main {
 }
 
 .debug-header {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.debug-header div {
+    display: flex;
+    justify-content: center;
+    align-items: space-between;
+    margin: 5px;
+}
+
+.debug-header div>label{
+    flex: 1 0 200px;
+}
+
+.debug-header div>select{
+    flex: 1 0 100px;
 }
 
 .spin {

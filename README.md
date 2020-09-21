@@ -29,6 +29,7 @@ You just need a google chrome browser to check this simulation out.
   * At the very last row of pay-table, the total balance locates. Users can specify a balance within 0-5000. In case of an invalid input, there is a warning text appears below part of the page.
   * Under the reels users will see "game mode" area. From there, positions and symbols can be set as wished.
   * Simulation has spin and payoff sounds. Make sure your sound is on.
+  * Animation speed can be adjusted among three levels: slow, normal and fast.
 
 
 ## Built With
